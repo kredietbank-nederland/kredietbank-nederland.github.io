@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build and Deploy
-        uses: synionnl/md-docs-composite-action@master
+        uses: synionnl/md-docs-composite-action@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           destination_directory: ./documentation
