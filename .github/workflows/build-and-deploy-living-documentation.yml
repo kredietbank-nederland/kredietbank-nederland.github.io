@@ -1,0 +1,73 @@
+name: BUILD & DEPLOY
+
+on: 
+  workflow_dispatch:
+  push:
+  repository_dispatch:
+    types: [test-execution-changed]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+
+      - name: Checkout git repo
+        uses: actions/checkout@v2
+        with:
+          path: main
+
+      - name: Checkout md-docs repo
+        uses: actions/checkout@v2
+        with:
+          repository: synionnl/living-documentation
+          path: md-docs
+      
+      - name: Setup Graphviz
+        uses: ts-graphviz/setup-graphviz@v1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+
+      - name: Install md-docs
+        working-directory: md-docs
+        run: |
+          npm ci
+          npm link
+
+      - name: Build branches
+        id: branches
+        working-directory: main
+        run: |
+          md-docs -b
+          BRANCHES=$(cat ./dist/branches.json)
+          echo "::set-output name=value::${BRANCHES//'%'/'%25'}"
+
+      - name: Build websites
+        working-directory: main
+        run: |
+          git fetch
+          for B in $(echo $BRANCHES | jq -r 'sort_by(.path) | .[].name')
+          do
+              git checkout "$B"
+              md-docs
+          done
+        env:
+          BRANCHES: ${{ steps.branches.outputs.value }}
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: main/dist
+          destination_dir: producten
+
+      - name: Uninstall md-docs
+        working-directory: md-docs
+        run: |
+          npm unlink
