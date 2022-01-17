@@ -22,4 +22,3 @@ jobs:
         uses: synionnl/md-docs-composite-action@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          destination_directory: ./documentation
