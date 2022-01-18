@@ -22,3 +22,6 @@ jobs:
         uses: synionnl/md-docs-actions/github-pages@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          azure_storage_account: kbnlstorage
+          azure_execution_storage_container: test-executions
