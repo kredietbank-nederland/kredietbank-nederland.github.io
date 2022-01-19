@@ -1,0 +1,17 @@
+@startuml
+
+autonumber
+
+participant Synion
+participant "Azure queue storage" as A
+participant Client
+
+Synion -> A : pop
+A --> Synion : afmeldecode
+Synion --> Synion : verwerk afmeldcode
+Synion -> Client : verstuur bevestiging
+Client -> Synion : ontvangen
+Synion -> A : ACK
+A --> Synion : geaccepteerd
+
+@enduml

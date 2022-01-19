@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_100z7w9" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.1" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="1.1.0">
+  <bpmn:collaboration id="Collaboration_1hqwchf">
+    <bpmn:participant id="Participant_0ouegme" name="Schuldregeling fase a" processRef="Process_0kdct9d" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_0kdct9d" isExecutable="true">
+    <bpmn:startEvent id="Event_1rvpq76" name="Start schuldregeling fase a">
+      <bpmn:outgoing>Flow_1fh6brv</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:exclusiveGateway id="Gateway_0kn1k00" name="Externe stabilisatie?">
+      <bpmn:incoming>Flow_1fh6brv</bpmn:incoming>
+      <bpmn:outgoing>Flow_0luzfw0</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0lqllqd</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1fh6brv" sourceRef="Event_1rvpq76" targetRef="Gateway_0kn1k00" />
+    <bpmn:sequenceFlow id="Flow_0bjq0q4" sourceRef="Activity_1pl3zw7" targetRef="Gateway_15fgxvx" />
+    <bpmn:sequenceFlow id="Flow_072ihnf" sourceRef="Gateway_15fgxvx" targetRef="Event_0ws3di8" />
+    <bpmn:sequenceFlow id="Flow_0dtcjlk" sourceRef="Gateway_15fgxvx" targetRef="Event_1c6af4x" />
+    <bpmn:sequenceFlow id="Flow_1o0h2dn" sourceRef="Event_0ws3di8" targetRef="Event_10cpb02" />
+    <bpmn:sequenceFlow id="Flow_0luzfw0" name="Nee" sourceRef="Gateway_0kn1k00" targetRef="Event_1kgazeo" />
+    <bpmn:sequenceFlow id="Flow_0lqllqd" name="Ja" sourceRef="Gateway_0kn1k00" targetRef="Event_03a2iwf" />
+    <bpmn:sequenceFlow id="Flow_0phsa95" sourceRef="Activity_1moqlcj" targetRef="Gateway_15fgxvx" />
+    <bpmn:sequenceFlow id="Flow_0ij7u7t" sourceRef="Event_1c6af4x" targetRef="Event_0t8ij72" />
+    <bpmn:sequenceFlow id="Flow_1ejouc2" sourceRef="Event_1kgazeo" targetRef="Activity_1pl3zw7" />
+    <bpmn:intermediateThrowEvent id="Event_1kgazeo" name="Stabilisatie gestart">
+      <bpmn:incoming>Flow_0luzfw0</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ejouc2</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1h9lwc4" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:intermediateCatchEvent id="Event_1c6af4x" name="Schuldregeling fase b gestart">
+      <bpmn:incoming>Flow_0dtcjlk</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ij7u7t</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1u00jen" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:eventBasedGateway id="Gateway_15fgxvx">
+      <bpmn:incoming>Flow_0bjq0q4</bpmn:incoming>
+      <bpmn:incoming>Flow_0phsa95</bpmn:incoming>
+      <bpmn:outgoing>Flow_072ihnf</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0dtcjlk</bpmn:outgoing>
+    </bpmn:eventBasedGateway>
+    <bpmn:intermediateCatchEvent id="Event_0ws3di8" name="Stabilisatie afgewezen">
+      <bpmn:incoming>Flow_072ihnf</bpmn:incoming>
+      <bpmn:outgoing>Flow_1o0h2dn</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1ovjn9m" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sendTask id="Activity_1pl3zw7" name="Verstuur mailing (1)">
+      <bpmn:incoming>Flow_1ejouc2</bpmn:incoming>
+      <bpmn:outgoing>Flow_0bjq0q4</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:manualTask id="Activity_1moqlcj" name="Extern stabiliseren">
+      <bpmn:incoming>Flow_0ab91tq</bpmn:incoming>
+      <bpmn:outgoing>Flow_0phsa95</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:endEvent id="Event_10cpb02" name="Stabilisatie afgewezen">
+      <bpmn:incoming>Flow_1o0h2dn</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0hy67p7" />
+    </bpmn:endEvent>
+    <bpmn:endEvent id="Event_0t8ij72" name="Schuldregeling fase b gestart">
+      <bpmn:incoming>Flow_0ij7u7t</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1f9mwv4" />
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0ab91tq" sourceRef="Event_03a2iwf" targetRef="Activity_1moqlcj" />
+    <bpmn:intermediateThrowEvent id="Event_03a2iwf" name="Externe stabilisatie gestart">
+      <bpmn:incoming>Flow_0lqllqd</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ab91tq</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_15vp10n" />
+    </bpmn:intermediateThrowEvent>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1hqwchf">
+      <bpmndi:BPMNShape id="Participant_0ouegme_di" bpmnElement="Participant_0ouegme" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="1110" height="490" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0ij7u7t_di" bpmnElement="Flow_0ij7u7t">
+        <di:waypoint x="1048" y="327" />
+        <di:waypoint x="1162" y="327" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0phsa95_di" bpmnElement="Flow_0phsa95">
+        <di:waypoint x="730" y="170" />
+        <di:waypoint x="890" y="170" />
+        <di:waypoint x="890" y="302" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0lqllqd_di" bpmnElement="Flow_0lqllqd">
+        <di:waypoint x="410" y="302" />
+        <di:waypoint x="410" y="170" />
+        <di:waypoint x="512" y="170" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="423" y="223" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0luzfw0_di" bpmnElement="Flow_0luzfw0">
+        <di:waypoint x="435" y="327" />
+        <di:waypoint x="512" y="327" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="459" y="303" width="21" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1o0h2dn_di" bpmnElement="Flow_1o0h2dn">
+        <di:waypoint x="1048" y="470" />
+        <di:waypoint x="1162" y="470" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0dtcjlk_di" bpmnElement="Flow_0dtcjlk">
+        <di:waypoint x="915" y="327" />
+        <di:waypoint x="1012" y="327" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_072ihnf_di" bpmnElement="Flow_072ihnf">
+        <di:waypoint x="890" y="352" />
+        <di:waypoint x="890" y="470" />
+        <di:waypoint x="1012" y="470" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0bjq0q4_di" bpmnElement="Flow_0bjq0q4">
+        <di:waypoint x="730" y="327" />
+        <di:waypoint x="865" y="327" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1fh6brv_di" bpmnElement="Flow_1fh6brv">
+        <di:waypoint x="295" y="327" />
+        <di:waypoint x="385" y="327" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ejouc2_di" bpmnElement="Flow_1ejouc2">
+        <di:waypoint x="548" y="327" />
+        <di:waypoint x="630" y="327" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ab91tq_di" bpmnElement="Flow_0ab91tq">
+        <di:waypoint x="548" y="170" />
+        <di:waypoint x="630" y="170" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_1rvpq76_di" bpmnElement="Event_1rvpq76">
+        <dc:Bounds x="259" y="309" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="243" y="352" width="71" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0kn1k00_di" bpmnElement="Gateway_0kn1k00" isMarkerVisible="true">
+        <dc:Bounds x="385" y="302" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="381" y="362" width="58" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1dety7t_di" bpmnElement="Event_1kgazeo">
+        <dc:Bounds x="512" y="309" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="445" y="352" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1c6af4x_di" bpmnElement="Event_1c6af4x">
+        <dc:Bounds x="1012" y="309" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="994" y="352" width="73" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_15fgxvx_di" bpmnElement="Gateway_15fgxvx">
+        <dc:Bounds x="865" y="302" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0ws3di8_di" bpmnElement="Event_0ws3di8">
+        <dc:Bounds x="1012" y="452" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1004" y="496" width="54" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1pl3zw7_di" bpmnElement="Activity_1pl3zw7">
+        <dc:Bounds x="630" y="287" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1moqlcj_di" bpmnElement="Activity_1moqlcj">
+        <dc:Bounds x="630" y="130" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_10cpb02_di" bpmnElement="Event_10cpb02">
+        <dc:Bounds x="1162" y="452" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1153" y="495" width="54" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_11a0w0m_di" bpmnElement="Event_0t8ij72">
+        <dc:Bounds x="1162" y="309" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1144" y="352" width="73" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1khdd3p_di" bpmnElement="Event_03a2iwf">
+        <dc:Bounds x="512" y="152" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="486" y="195" width="89" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
