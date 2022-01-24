@@ -1,4 +1,0 @@
-#language: nl
-Functionaliteit: Product
-
-  
