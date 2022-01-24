@@ -34,7 +34,7 @@ cloud "Website" <<kbnkl.nl>> {
 cloud "Internet"
 
 cloud Github <<kredietbank-nederland>> {
-    [Workflow]
+    [Workflow] <<interactieve-shv>>
     database "Container registry" AS CR
 
     Workflow --> CR : Container
