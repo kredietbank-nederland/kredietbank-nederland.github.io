@@ -6,6 +6,7 @@ De Kredietbank Nederland wil clienten actief digitaal informeren wanneer er zich
 
 * [Dashboard](product.dashboard.yml)
 * ![User Interface](mailing.png)
+* [Context](context-diragram.puml)
 
 ## Proces
 

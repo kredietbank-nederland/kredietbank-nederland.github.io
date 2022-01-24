@@ -1,0 +1,75 @@
+@startuml
+
+cloud KBNL {
+    package "Interactieve SHV" <<container>> AS ISHV {
+        [Console application] <<.net core 6>> as APP
+        () SMTP
+        () ILogger
+        () "Entity framework" as DA
+        () "Azure storage queues" AS ASQ
+        [Application insights] as AIC
+        () https as KBNL_Http
+    }
+
+
+    database Sophion
+    database Allegro
+}
+
+cloud "Azure" <<kbnl>> {
+    [Application insights] <<kbnl-insights>> AS AI
+    [Storage account] <<kbnlstorage>> AS SA
+    [Azure functions] <<kbnl-interactieve-shv-functions>> AS AF
+    [CDN] <<kbnlcdn>> AS CDN
+    () "end point" <<bestanden-kbnl-nl>> AS EP
+    () https as Azure_Http
+
+    SA <- AF
+}
+
+cloud "Website" <<kbnkl.nl>> {
+    () "Afmeld pagina" as Afmelden
+}
+
+cloud "Internet"
+
+cloud Github <<kredietbank-nederland>> {
+    [Workflow]
+    database "Container registry" AS CR
+
+    Workflow --> CR : Container
+}
+
+CDN --> SA
+CDN <-- EP
+
+SMTP -> Internet
+
+SA <-- Azure_Http
+AI <-- Azure_Http
+EP <-- Azure_Http
+AF <-- Azure_Http
+
+ISHV <- CR
+
+Azure_Http <.. Workflow : "Mailing bestanden"
+Azure_Http <.. KBNL_Http
+Azure_Http <.. Afmelden : "Afmeldcode"
+
+KBNL_Http <.. AIC
+KBNL_Http <.. ASQ
+
+AIC ..|> ILogger
+
+APP -> SMTP
+
+ASQ <-- APP
+ILogger <- APP
+
+APP --> DA
+
+DA --> Sophion : "TCP/IP:1433 RW"
+DA --> Allegro : "TCP/IP:1433 R"
+
+
+@enduml
