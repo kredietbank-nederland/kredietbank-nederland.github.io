@@ -5,8 +5,8 @@
 De Kredietbank Nederland wil clienten actief digitaal informeren wanneer er zich belangrijke mijlpalen hebben voorgedaan. Deze informatievoorziening moet ervoor zorgen dat de client beter inzicht krijgt in de status van de schuldregeling: wat is er gebeurt en wat gaat er nog gebeuren.
 
 * [Dashboard](product.dashboard.yml)
+* [Context](context-diagram.puml)
 * ![User Interface](mailing.png)
-* [Context](context-diragram.puml)
 
 ## Proces
 

@@ -34,5 +34,3 @@ jobs:
 
       - name: Deploy
         uses: synionnl/md-docs-actions/github/deploy@main
-        with:
-          destination_directory: products
