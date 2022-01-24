@@ -1,11 +1,12 @@
-features:
-    - afmelden.feature
-    - azure.feature
-    - ef.feature
-    - mailing.feature
-    - proces.feature
+features:    
     - product.feature
-    - schuldbemiddeling.feature
     - schuldregeling-fase-a.feature
     - schuldregeling-fase-b.feature
     - schuldsanering.feature
+    - schuldbemiddeling.feature
+    - proces.feature    
+    - afmelden.feature
+    - ef.feature
+    - mailing.feature
+    - azure.feature
+    - azure-function.feature
