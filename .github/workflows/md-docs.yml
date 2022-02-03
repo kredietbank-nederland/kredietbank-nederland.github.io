@@ -23,7 +23,7 @@ jobs:
       - name: Download
         uses: synionnl/md-docs-actions/azure/download@main
         with:
-          credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          credentials: ${{ secrets.AZURE_CREDENTIALS_LIVING_DOCUMENTATION }}
           storage_account: kbnlstorage
           storage_container: test-executions
           github_token: ${{ github.token }}
