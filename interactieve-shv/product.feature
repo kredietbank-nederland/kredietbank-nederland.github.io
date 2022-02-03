@@ -1,4 +1,5 @@
 #language: nl
+@UseAzureFunction
 Functionaliteit: Product
 
   @IntegratieTest
