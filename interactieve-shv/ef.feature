@@ -1,4 +1,5 @@
 #language: nl
+@Database
 Functionaliteit: Database adapter
 
   Scenario: Kan casussen verwerken
