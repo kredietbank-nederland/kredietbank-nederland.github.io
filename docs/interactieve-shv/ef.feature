@@ -2,6 +2,7 @@
 @Database
 Functionaliteit: Database adapter
 
+  @Dev
   Scenario: Kan casussen verwerken
     Gegeven casussen
     Wanneer de applicatie heeft gedraaid

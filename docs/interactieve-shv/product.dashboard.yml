@@ -7,6 +7,8 @@ features:
     - proces.feature    
     - afmelden.feature
     - ef.feature
+    - events.feature
+    - iam.feature
     - mailing.feature
     - azure.feature
     - azure-function.feature

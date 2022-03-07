@@ -69,10 +69,10 @@ Functionaliteit: Schuldregeling fase b
   Scenario: Geef fout wanneer de schuldregeling voorlopig is geweigerd zonder dat de schuldregeling gestart is
     Gegeven de schuldregeling is voorlopig geweigerd
     Wanneer de casus is verwerkt met een fout
-    Dan moet fout "SchuldhulpverleningFout" met tekst "Schuldregegling voorlopig geweigerd zonder start schuldregeling." zich hebben voorgedaan
+    Dan moet fout "SchuldhulpverleningFout" met tekst "Schuldregeling voorlopig geweigerd zonder start schuldregeling." zich hebben voorgedaan
 
   Scenario: Geef fout wanneer de schuldregeling voorlopig is geweigerd zonder dat de schulden geinventariseerd zijn
     Gegeven schuldregeling fase b is gestart
     En de schuldregeling is voorlopig geweigerd
     Wanneer de casus is verwerkt met een fout
-    Dan moet fout "SchuldhulpverleningFout" met tekst "Schuldregegling voorlopig geweigerd zonder dat de schulden zijn geïnventariseerd." zich hebben voorgedaan
+    Dan moet fout "SchuldhulpverleningFout" met tekst "Schuldregeling voorlopig geweigerd zonder dat de schulden zijn geïnventariseerd." zich hebben voorgedaan
