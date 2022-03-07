@@ -1,7 +1,8 @@
 #language: nl
+@IntegratieTest
 Functionaliteit: Product
-
-  Scenario: Kan mailingen versturen
+  
+  Scenario: Kan mailingen vesturen
     Gegeven dossiers
     Wanneer de applicatie is gestart
     Dan zijn de mailingen verstuurd
