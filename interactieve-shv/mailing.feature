@@ -4,8 +4,9 @@ Functionaliteit: Mailing adapter
   Abstract Scenario: De mailing "<mailing>" bevat de juiste informatie
     Wanneer de mailing "<mailing>" wordt verstuurd met afmeldcode "<afmeldcode>"
     Dan is het onderwerp van de mailing "<onderwerp>"
-    En bevat de mailing de tekst "<pre header>"
+    En bevat de mailing de tekst "<pre header>"    
     En bevat de mailing de afmeld url met afmeldcode "<afmeldcode>"
+    En is het cdn url vervangen
 
     Voorbeelden:
       | mailing                           | afmeldcode                            | onderwerp                 | pre header                      |
