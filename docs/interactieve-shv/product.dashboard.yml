@@ -12,3 +12,4 @@ features:
     - mailing.feature
     - azure.feature
     - azure-function.feature
+    - email.feature
