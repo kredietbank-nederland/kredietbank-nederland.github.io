@@ -1,0 +1,1 @@
+window.x_md_docs_cli_branches = [{"name":"main","repository":"kredietbank-nederland/kredietbank-nederland.github.io","url":"https://github.com/kredietbank-nederland/kredietbank-nederland.github.io/blob/main","mainBranch":true,"path":"main/"}];
